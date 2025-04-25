@@ -32,9 +32,9 @@ export class LoginComponent {
       return;
     }
 
-    this.http.post<any>('http://localhost:3000/api/usuarios/login', this.form.value).subscribe({
+    this.auth.login(this.form.value).subscribe({
       next: (res) => {
-        this.auth.login(res.token);
+        localStorage.setItem('token', res.token);
         localStorage.setItem('usuario', JSON.stringify(res.usuario));
         this.router.navigate(['/dashboard']);
       },
