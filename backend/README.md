@@ -17,6 +17,8 @@
 
 npm install express mongoose dotenv cors express-validator
 
+npm install bcryptjs jsonwebtoken
+
 ---
 
 ## Dependencias
