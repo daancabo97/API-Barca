@@ -13,12 +13,11 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   form: FormGroup;
   error: string = '';
-  auth: any;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private authService: AuthService,
+    private auth: AuthService,
     private router: Router
   ) {
     this.form = this.fb.group({
@@ -35,7 +34,8 @@ export class LoginComponent {
 
     this.http.post<any>('http://localhost:3000/api/usuarios/login', this.form.value).subscribe({
       next: (res) => {
-        this.auth.login(res.token, res.usuario);
+        this.auth.login(res.token);
+        localStorage.setItem('usuario', JSON.stringify(res.usuario));
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
