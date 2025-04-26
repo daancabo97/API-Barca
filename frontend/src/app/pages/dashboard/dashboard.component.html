@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+<div class="container mt-4">
+  <h2>Bienvenido al Dashboard</h2>
+
+  <div *ngIf="usuario" class="card p-3 mt-4">
+    <h4>Nombre: {{ usuario.nombre }}</h4>
+    <p>Correo: {{ usuario.correo }}</p>
+    <p>Rol: {{ usuario.rol }}</p>
+
+    <div class="mt-3">
+      <div *ngIf="usuario.rol === 'admin'">
+        <h5>Sección especial para Administradores</h5>
+        <p>Puedes gestionar usuarios, partidos y estadísticas.</p>
+      </div>
+
+      <div *ngIf="usuario.rol === 'jugador'">
+        <h5>Sección para Jugadores</h5>
+        <p>Consulta tus estadísticas y próximos partidos.</p>
+      </div>
+
+      <div *ngIf="usuario.rol === 'tecnico'">
+        <h5>Sección para Técnicos</h5>
+        <p>Revisa la plantilla de jugadores y gestiona entrenamientos.</p>
+      </div>
+
+      <div *ngIf="usuario.rol === 'usuario'">
+        <h5>Sección para Usuarios</h5>
+        <p>Accede a información pública del equipo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!usuario" class="alert alert-warning mt-4">
+    No hay usuario autenticado.
+  </div>
+</div>

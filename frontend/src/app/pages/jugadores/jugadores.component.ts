@@ -1,11 +1,26 @@
-import { Component } from '@angular/core';
+// src/app/pages/jugadores/jugadores.component.ts
+import { Component, OnInit } from '@angular/core';
+import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
   selector: 'app-jugadores',
-  standalone: false,
   templateUrl: './jugadores.component.html',
-  styleUrl: './jugadores.component.css'
+  styleUrls: ['./jugadores.component.css'],
+  standalone: false
 })
-export class JugadoresComponent {
+export class JugadoresComponent implements OnInit {
+  usuarios: any[] = [];
 
+  constructor(private usuariosService: UsuariosService) {}
+
+  ngOnInit(): void {
+    this.usuariosService.obtenerUsuarios().subscribe({
+      next: (res) => {
+        this.usuarios = res;
+      },
+      error: (err) => {
+        console.error('Error al obtener usuarios', err);
+      }
+    });
+  }
 }

@@ -1,1 +1,23 @@
-<p>estadisticas works!</p>
+<div class="container mt-4">
+  <h3 class="text-center text-info mb-4">Estadísticas de Jugadores</h3>
+  <div *ngIf="estadisticas.length === 0">No hay estadísticas registradas.</div>
+
+  <table class="table table-hover table-bordered shadow mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre Jugador</th>
+        <th>Goles</th>
+        <th>Asistencias</th>
+        <th>Partidos Jugados</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let est of estadisticas">
+        <td>{{ est.nombreJugador }}</td>
+        <td>{{ est.goles }}</td>
+        <td>{{ est.asistencias }}</td>
+        <td>{{ est.partidosJugados }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

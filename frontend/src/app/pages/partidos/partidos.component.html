@@ -1,1 +1,21 @@
-<p>partidos works!</p>
+<div class="container mt-4">
+  <h3 class="text-center text-success mb-4">Partidos Registrados</h3>
+  <div *ngIf="partidos.length === 0">No hay partidos registrados.</div>
+
+  <table class="table table-hover table-bordered shadow mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Equipo Local</th>
+        <th>Equipo Visitante</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let partido of partidos">
+        <td>{{ partido.equipoLocal }}</td>
+        <td>{{ partido.equipoVisitante }}</td>
+        <td>{{ partido.fecha | date: 'mediumDate' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

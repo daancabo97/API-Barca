@@ -1,1 +1,21 @@
-<p>jugadores works!</p>
+<div class="container mt-4">
+  <h3 class="text-center text-primary mb-4">Usuarios Registrados</h3>
+  <div *ngIf="usuarios.length === 0">No hay usuarios registrados.</div>
+
+  <table class="table table-hover table-bordered shadow mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuarios">
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.correo }}</td>
+        <td>{{ user.rol }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
