@@ -13,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   form: FormGroup;
   error: string = '';
+  mensaje: string = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -24,7 +26,14 @@ export class LoginComponent {
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state && navigation.extras.state['mensaje']) {
+      this.mensaje = navigation.extras.state['mensaje'];
+    }
   }
+
+
 
   login() {
     if (this.form.invalid) {

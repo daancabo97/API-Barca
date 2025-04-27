@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="registrarUsuario()" class="container mt-5" style="max-width: 400px">
-  <h2>Registro</h2>
+  <h2 class="text-center">Registro</h2>
 
   <div class="mb-3">
     <label>Nombre</label>
@@ -26,10 +26,20 @@
     </select>
   </div>
 
+  <div class="mb-3" *ngIf="form.get('rol')?.value === 'jugador'">
+    <label>Posición</label>
+    <select class="form-control" formControlName="posicion">
+      <option value="Portero">Portero</option>
+      <option value="Defensa">Defensa</option>
+      <option value="Centrocampista">Centrocampista</option>
+      <option value="Delantero">Delantero</option>
+    </select>
+  </div>
+
   <button class="btn btn-primary w-100" type="submit">Registrar</button>
 
   <a routerLink="/login" class="btn btn-danger w-100 mt-3">Volver</a>
 
-  <div *ngIf="mensaje" class="alert alert-info mt-3">{{ mensaje }}</div>
+  <div *ngIf="mensaje" class="alert alert-success mt-3">{{ mensaje }}</div>
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
 </form>
