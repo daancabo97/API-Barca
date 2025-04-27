@@ -20,7 +20,15 @@ export class UsuariosComponent implements OnInit {
     private usuariosService: UsuariosService,
     private fb: FormBuilder
   ) {
-    this.form = this.fb.group({
+    this.crearFormulario();
+  }
+
+  ngOnInit(): void {
+    this.obtenerUsuarios();
+  }
+
+  crearFormulario(){
+  this.form = this.fb.group({
       nombre: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
@@ -29,9 +37,6 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.obtenerUsuarios();
-  }
 
   obtenerUsuarios() {
     this.usuariosService.obtenerUsuarios().subscribe({
@@ -51,6 +56,10 @@ export class UsuariosComponent implements OnInit {
 
     const nuevoUsuario = this.form.value;
 
+    if (nuevoUsuario.contrasena === '') {
+      delete nuevoUsuario.contrasena;
+    }
+
     // Eliminar la propiedad 'posicion' si el rol no es jugador
     if (nuevoUsuario.rol !== 'jugador') {
       delete nuevoUsuario.posicion;
@@ -60,10 +69,11 @@ export class UsuariosComponent implements OnInit {
       this.usuariosService.actualizarUsuario(this.usuarioId, nuevoUsuario).subscribe({
         next: () => {
           this.mensaje = 'Usuario actualizado correctamente';
-          this.form.reset({ rol: 'usuario' });
           this.obtenerUsuarios();
           this.editando = false;
           this.usuarioId = '';
+          this.crearFormulario();
+          this.form.reset({ rol: 'usuario' });
 
           // Mostrar mensaje de notificacion cuando se edite el usuario y quitar el mensaje  en 3 segundos
           setTimeout(() => {this.mensaje = '';}, 3000);
@@ -114,6 +124,9 @@ export class UsuariosComponent implements OnInit {
       rol: usuario.rol,
       posicion: usuario.posicion || '',
     });
+
+    this.form.get('contrasena')?.clearValidators();
+    this.form.get('contrasena')?.updateValueAndValidity();
 
     this.usuarioId = usuario._id;
     this.editando = true;
