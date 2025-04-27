@@ -14,4 +14,17 @@ export class PartidosService {
   obtenerPartidos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/obtener`);
   }
+
+  crearPartido(partido: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/crear`, partido);
+  }
+
+  actualizarPartido(id: string, partido: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/actualizar/${id}`, partido);
+  }
+
+  eliminarPartido(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/eliminar/${id}`);
+  }
 }
+
