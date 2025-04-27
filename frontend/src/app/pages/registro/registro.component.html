@@ -26,7 +26,9 @@
     </select>
   </div>
 
-  <button class="btn btn-success w-100" type="submit">Registrar</button>
+  <button class="btn btn-primary w-100" type="submit">Registrar</button>
+
+  <a routerLink="/login" class="btn btn-danger w-100 mt-3">Volver</a>
 
   <div *ngIf="mensaje" class="alert alert-info mt-3">{{ mensaje }}</div>
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>

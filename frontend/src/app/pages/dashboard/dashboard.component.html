@@ -1,35 +1,45 @@
 <div class="container mt-4">
-  <h2>Bienvenido al Dashboard</h2>
+  <h2 class="mb-4 text-center">Bienvenido al Dashboard</h2>
 
   <div *ngIf="usuario" class="card p-3 mt-4">
-    <h4>Nombre: {{ usuario.nombre }}</h4>
-    <p>Correo: {{ usuario.correo }}</p>
-    <p>Rol: {{ usuario.rol }}</p>
+    <h4><strong>Nombre:</strong> {{ usuario.nombre }}</h4>
+    <p><strong>Correo:</strong> {{ usuario.correo }}</p>
+    <p><strong>Rol: </strong>{{ usuario.rol }}</p>
 
-    <div class="mt-3">
-      <div *ngIf="usuario.rol === 'admin'">
-        <h5>Sección especial para Administradores</h5>
-        <p>Puedes gestionar usuarios, partidos y estadísticas.</p>
-      </div>
-
-      <div *ngIf="usuario.rol === 'jugador'">
-        <h5>Sección para Jugadores</h5>
-        <p>Consulta tus estadísticas y próximos partidos.</p>
-      </div>
-
-      <div *ngIf="usuario.rol === 'tecnico'">
-        <h5>Sección para Técnicos</h5>
-        <p>Revisa la plantilla de jugadores y gestiona entrenamientos.</p>
-      </div>
-
-      <div *ngIf="usuario.rol === 'usuario'">
-        <h5>Sección para Usuarios</h5>
-        <p>Accede a información pública del equipo.</p>
-      </div>
+    <div *ngIf="usuario?.rol === 'admin'" class="mt-4">
+      <h4 class="text-danger">Panel de Administración</h4>
+      <p>Gestiona todo el sistema: usuarios, partidos y estadísticas.</p>
+      <a class="btn btn-primary w-100 mb-2" routerLink="/usuarios">Gestionar Usuarios</a>
+      <a class="btn btn-primary w-100 mb-2" routerLink="/partidos">Gestionar Partidos</a>
+      <a class="btn btn-primary w-100 mb-2" routerLink="/estadisticas">Gestionar Estadísticas</a>
     </div>
+
+    <div *ngIf="usuario?.rol === 'tecnico'" class="mt-4">
+      <h4 class="text-warning">Panel de Técnico</h4>
+      <p>Consulta y gestiona partidos y estadísticas de jugadores.</p>
+      <a class="btn btn-warning w-100 mb-2" routerLink="/partidos">Ver Partidos</a>
+      <a class="btn btn-warning w-100 mb-2" routerLink="/estadisticas">Ver Estadísticas</a>
+    </div>
+
+    <div *ngIf="usuario?.rol === 'jugador'" class="mt-4">
+      <h4 class="text-success">Panel de Jugador</h4>
+      <p>Consulta tus estadísticas y partidos.</p>
+      <a class="btn btn-success w-100 mb-2" routerLink="/estadisticas">Ver Mis Estadísticas</a>
+    </div>
+
+    <div *ngIf="usuario?.rol === 'usuario'" class="mt-4">
+      <h4 class="text-info">Panel de Usuario</h4>
+      <p>Explora estadísticas y partidos como espectador.</p>
+      <a class="btn btn-info w-100 mb-2" routerLink="/partidos">Ver Partidos</a>
+      <a class="btn btn-info w-100 mb-2" routerLink="/estadisticas">Ver Estadísticas</a>
+    </div>
+    </div>
+
+    <div *ngIf="!usuario" class="alert alert-warning mt-4">
+      No hay usuario autenticado.
+    </div>
+
   </div>
 
-  <div *ngIf="!usuario" class="alert alert-warning mt-4">
-    No hay usuario autenticado.
-  </div>
-</div>
+
+

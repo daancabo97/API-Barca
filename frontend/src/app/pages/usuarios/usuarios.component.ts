@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
-  selector: 'app-jugadores',
-  templateUrl: './jugadores.component.html',
-  styleUrls: ['./jugadores.component.css'],
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.css'],
   standalone: false
 })
-export class JugadoresComponent implements OnInit {
+export class UsuariosComponent implements OnInit {
   usuarios: any[] = [];
 
   constructor(private usuariosService: UsuariosService) {}

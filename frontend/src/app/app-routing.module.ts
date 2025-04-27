@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { JugadoresComponent } from './pages/jugadores/jugadores.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { PartidosComponent } from './pages/partidos/partidos.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'jugadores', component: JugadoresComponent, canActivate: [AuthGuard] },
+  { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
   { path: 'partidos', component: PartidosComponent, canActivate: [AuthGuard] },
   { path: 'estadisticas', component: EstadisticasComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }

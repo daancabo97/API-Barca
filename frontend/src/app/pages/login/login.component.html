@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="login()" class="container mt-5" style="max-width: 400px">
-  <h2>Login</h2>
+  <h2 class="text-center">Login</h2>
 
   <div class="mb-3">
     <label>Email</label>
@@ -14,4 +14,10 @@
   <button class="btn btn-primary w-100" type="submit">Iniciar sesión</button>
 
   <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+
+  <div class="text-center mt-3">
+    <p>¿No tienes cuenta?</p>
+    <a routerLink="/registro" class="btn btn-danger w-100">Registrarse aqui</a>
+  </div>
+
 </form>

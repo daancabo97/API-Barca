@@ -10,7 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { JugadoresComponent } from './pages/jugadores/jugadores.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { PartidosComponent } from './pages/partidos/partidos.component';
 import { EstadisticasComponent } from './pages/estadisticas/estadisticas.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -22,7 +22,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     LoginComponent,
     RegistroComponent,
     DashboardComponent,
-    JugadoresComponent,
+    UsuariosComponent,
     PartidosComponent,
     EstadisticasComponent,
     NavbarComponent
