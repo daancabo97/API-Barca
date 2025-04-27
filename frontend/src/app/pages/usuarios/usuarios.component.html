@@ -37,7 +37,9 @@
       </select>
     </div>
     <div class="col-12 mt-3">
-      <button class="btn btn-success w-100" type="submit" [disabled]="form.invalid">Crear Usuario</button>
+      <button class="btn btn-success w-100" type="submit" [disabled]="form.invalid">
+        {{ editando ? 'Actualizar Usuario' : 'Crear Usuario' }}
+      </button>
     </div>
   </div>
 </form>
@@ -62,6 +64,9 @@
         <td>{{ user.correo }}</td>
         <td>{{ user.rol }}</td>
         <td>{{ user.posicion || 'N/A' }}</td>
+        <td class="text-center">
+          <button class="btn btn-danger" (click)="eliminarUsuario(user._id)">Eliminar</button>
+          <button class="btn btn-warning" (click)="editarUsuario(user)">Editar</button>
       </tr>
     </tbody>
   </table>

@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class UsuariosService {
   private baseUrl = 'http://localhost:3000/api/usuarios';
 
+  usuarioId: string = '';
+
   constructor(private http: HttpClient) {}
 
   obtenerUsuarios(): Observable<any[]> {
@@ -16,5 +18,13 @@ export class UsuariosService {
 
   crearUsuario(usuario: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/crear`, usuario);
+  }
+
+  eliminarUsuario(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/eliminar/${id}`);
+  }
+
+  actualizarUsuario(id: string, usuario: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/actualizar/${id}`, usuario);
   }
 }

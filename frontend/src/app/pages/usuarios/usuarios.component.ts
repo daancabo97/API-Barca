@@ -1,4 +1,3 @@
-// src/app/pages/jugadores/jugadores.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
@@ -14,6 +13,8 @@ export class UsuariosComponent implements OnInit {
   form!: FormGroup;
   mensaje: string = '';
   mensajeError: string = '';
+  editando: boolean = false;
+  usuarioId: string = '';
 
   constructor(
     private usuariosService: UsuariosService,
@@ -55,20 +56,66 @@ export class UsuariosComponent implements OnInit {
       delete nuevoUsuario.posicion;
     }
 
+    if(this.editando) {
+      this.usuariosService.actualizarUsuario(this.usuarioId, nuevoUsuario).subscribe({
+        next: () => {
+          this.mensaje = 'Usuario actualizado correctamente';
+          this.form.reset({ rol: 'usuario' });
+          this.obtenerUsuarios();
+          this.editando = false;
+          this.usuarioId = '';
+
+          // Mostrar mensaje de notificacion cuando se edite el usuario y quitar el mensaje  en 3 segundos
+          setTimeout(() => {this.mensaje = '';}, 3000);
+        },
+        error: (err) => {
+          console.error('Error al actualizar usuario', err);
+        },
+      });
+    } else {
     this.usuariosService.crearUsuario(nuevoUsuario).subscribe({
       next: () => {
         this.mensaje = 'Usuario creado correctamente';
         this.form.reset({ rol: 'usuario' });
         this.obtenerUsuarios();
 
-        // Mostrar mensaje de notificacion y quitarlo en 3 segundos
-        setTimeout(() => {
-          this.mensaje = '';
-        }, 3000);
+        // Mostrar mensaje de notificacion cuando se cree el usuario y quitar el mensaje  en 3 segundos
+        setTimeout(() => {this.mensaje = '';}, 3000);
       },
       error: (err) => {
         console.error('Error al crear usuario', err);
       },
     });
+  }
+}
+
+  eliminarUsuario(id: string) {
+    this.usuariosService.eliminarUsuario(id).subscribe({
+      next: () => {
+        this.mensaje = 'Usuario eliminado correctamente';
+        this.obtenerUsuarios();
+
+        // Mostrar mensaje de notificacion cuando se elimine el usuario y quitar el mensaje  en 3 segundos
+        setTimeout(() => {
+          this.mensaje = '';
+        }, 3000);
+      },
+      error: (err) => {
+        console.error('Error al eliminar usuario', err);
+      },
+    });
+  }
+
+  editarUsuario(usuario: any) {
+    this.form.patchValue({
+      nombre: usuario.nombre,
+      correo: usuario.correo,
+      contrasena: '',
+      rol: usuario.rol,
+      posicion: usuario.posicion || '',
+    });
+
+    this.usuarioId = usuario._id;
+    this.editando = true;
   }
 }
