@@ -1,4 +1,4 @@
-# SegundoProyectoBackend
+# Backend - FC Barcelona API
 
 ---
 
@@ -38,6 +38,8 @@ express.json(): Permite recibir datos tipo JSON en las solicitudes
 ## .env
 
 MONGO_URI=mongodb://localhost:27017/SegundoProyectoBackend
+
+Tener levantada la consola de mongod y mongo y luego entrar a mongo compass
 
 ---
 
