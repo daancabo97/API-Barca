@@ -17,6 +17,7 @@ export class PartidosComponent implements OnInit {
 
   form!: FormGroup;
   mensaje: string = '';
+  errorMensaje: string = '';
   editando: boolean = false;
   partidoId: string = '';
 
@@ -72,10 +73,13 @@ export class PartidosComponent implements OnInit {
   agregarJugador() {
     if (!this.jugadorSeleccionado) return;
 
+    const jugadorEncontrado = this.jugadoresDisponibles.find(j => j._id === this.jugadorSeleccionado);
+    if (!jugadorEncontrado) return;
+
     this.jugadoresConvocados.push({
-      jugador: this.jugadorSeleccionado._id,
-      nombre: this.jugadorSeleccionado.nombre,
-      posicion: this.jugadorSeleccionado.posicion
+      jugador: jugadorEncontrado._id,
+      nombre: jugadorEncontrado.nombre,
+      posicion: jugadorEncontrado.posicion
     });
 
     this.jugadorSeleccionado = null;
@@ -86,8 +90,15 @@ export class PartidosComponent implements OnInit {
   }
 
   registrarPartido() {
-    if (this.form.invalid || this.jugadoresConvocados.length === 0) {
-      console.error('Formulario inválido o sin jugadores');
+    if (this.form.invalid) {
+      this.errorMensaje = 'Formulario inválido. Por favor completa todos los campos obligatorios.';
+      setTimeout(() => { this.errorMensaje = ''; }, 3000);
+      return;
+    }
+
+    if (this.jugadoresConvocados.length < 11) {
+      this.errorMensaje = 'Debes convocar al menos 11 jugadores para crear el partido';
+      setTimeout(() => { this.errorMensaje = ''; }, 3000);
       return;
     }
 
@@ -99,10 +110,13 @@ export class PartidosComponent implements OnInit {
       }))
     };
 
+
+
     if (this.editando) {
       this.partidosService.actualizarPartido(this.partidoId, nuevoPartido).subscribe({
         next: () => {
           this.mensaje = 'Partido actualizado correctamente';
+          this.errorMensaje = '';
           this.obtenerPartidos();
           this.editando = false;
           this.partidoId = '';
@@ -118,6 +132,7 @@ export class PartidosComponent implements OnInit {
       this.partidosService.crearPartido(nuevoPartido).subscribe({
         next: () => {
           this.mensaje = 'Partido creado correctamente';
+          this.errorMensaje = '';
           this.obtenerPartidos();
           this.jugadoresConvocados = [];
           this.crearFormulario();

@@ -1,3 +1,11 @@
+<div *ngIf="errorMensaje" class="alert alert-danger text-center">
+  {{ errorMensaje }}
+</div>
+
+<div *ngIf="mensaje" class="alert alert-success text-center">
+  {{ mensaje }}
+</div>
+
 <div class="container mt-4">
   <h3 class="text-center text-success mb-4">Partidos Registrados</h3>
 
@@ -43,8 +51,8 @@
         <div class="col-md-10">
           <select class="form-control" [(ngModel)]="jugadorSeleccionado" [ngModelOptions]="{standalone: true}">
             <option [ngValue]="null">Seleccione Jugador</option>
-            <option *ngFor="let jugador of jugadoresDisponibles" [ngValue]="jugador">
-              {{ jugador.nombre }}
+            <option *ngFor="let jugador of jugadoresDisponibles" [value]="jugador._id">
+              {{ jugador.nombre }} - {{ jugador.posicion }}
             </option>
           </select>
         </div>
