@@ -1,46 +1,46 @@
-<div class="container mt-5">
+<div class="container">
   <h2 class="mb-4 text-center">Bienvenido al Dashboard</h2>
 
-  <div *ngIf="usuario" class="card shadow-lg p-4 mx-auto" style="max-width: 600px;">
-    <h4 class="mb-2"><strong>Nombre:</strong> {{ usuario.nombre }}</h4>
-    <p class="text-muted mb-1"><strong>Correo:</strong> {{ usuario.correo }}</p>
-    <p class="text-muted"><strong>Rol: </strong>{{ usuario.rol }}</p>
+  <div *ngIf="usuario" class="card shadow-lg p-5 mx-auto" style="max-width: 900px; min-width: 500px; min-height: 100px">
+    <h4 class="mb-2 text-center"><strong>Nombre:</strong> {{ usuario.nombre }}</h4>
+    <p class="text-muted mb-1 text-center"><strong>Correo:</strong> {{ usuario.correo }}</p>
+    <p class="text-muted text-center"><strong>Rol: </strong>{{ usuario.rol }}</p>
 
 
 
-    <div *ngIf="usuario?.rol === 'admin'" class="mt-4 text-center">
+    <div *ngIf="usuario?.rol === 'admin'" class="col-12 text-center">
       <h4 class="text-danger mb-3 fw-bold">Panel de Administración</h4>
       <p class="small text-secondary">Gestionar usuarios, partidos y estadísticas.</p>
     <div class="d-grid gap-2 mt-3">
-      <a class="btn btn-primary w-100 mb-2" routerLink="/usuarios">Gestionar Usuarios</a>
-      <a class="btn btn-primary w-100 mb-2" routerLink="/partidos">Gestionar Partidos</a>
+      <a class="btn btn-warning" routerLink="/usuarios">Gestionar Usuarios</a>
+      <a class="btn btn-warning" routerLink="/partidos">Gestionar Partidos</a>
       <!--<a class="btn btn-primary w-100" routerLink="/estadisticas">Gestionar Estadísticas</a>-->
     </div>
   </div>
 
-    <div *ngIf="usuario?.rol === 'tecnico'" class="mt-4 text-center">
+    <div *ngIf="usuario?.rol === 'tecnico'" class="col-12 text-center">
       <h4 class="text-warning mb-3 fw-bold">Panel de Técnico</h4>
       <p class="small text-secondary">Consulta y gestiona partidos y estadísticas de jugadores.</p>
     <div class="d-grid gap-2 mt-3">
-      <a class="btn btn-warning w-100 mb-2" routerLink="/partidos">Ver Partidos</a>
-      <a class="btn btn-warning w-100" routerLink="/estadisticas">Ver Estadísticas</a>
+      <a class="btn btn-warning" routerLink="/partidos">Ver Partidos</a>
+      <a class="btn btn-warning" routerLink="/estadisticas">Ver Estadísticas</a>
     </div>
   </div>
 
-    <div *ngIf="usuario?.rol === 'jugador'" class="mt-4 text-center">
+    <div *ngIf="usuario?.rol === 'jugador'" class="col-12 text-center">
       <h4 class="text-success mb-3 fw-bold">Panel de Jugador</h4>
       <p class="small text-secondary">Consulta tus estadísticas y partidos.</p>
     <div class="d-grid gap-2 mt-3">
-      <a class="btn btn-success w-100 mb-2" routerLink="/estadisticas">Ver Mis Estadísticas</a>
+      <a class="btn btn-success" routerLink="/estadisticas">Ver Mis Estadísticas</a>
     </div>
   </div>
 
-    <div *ngIf="usuario?.rol === 'usuario'" class="mt-4 text-center">
+    <div *ngIf="usuario?.rol === 'usuario'" class="col-12 text-center">
       <h4 class="text-info mb-3 fw-bold">Panel de Usuario</h4>
       <p class="small text-secondary">Explora estadísticas y partidos como espectador.</p>
     <div class="d-grid gap-2 mt-3">
-      <a class="btn btn-info w-100 mb-2" routerLink="/partidos">Ver Partidos</a>
-      <a class="btn btn-info w-100 mb-2" routerLink="/estadisticas">Ver Estadísticas</a>
+      <a class="btn btn-info" routerLink="/partidos">Ver Partidos</a>
+      <a class="btn btn-info" routerLink="/estadisticas">Ver Estadísticas</a>
     </div>
   </div>
 </div>
