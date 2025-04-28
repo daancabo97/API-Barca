@@ -49,22 +49,18 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+
   registrarUsuario() {
     if (this.form.invalid) {
       return;
     }
-
     const nuevoUsuario = this.form.value;
-
     if (nuevoUsuario.contrasena === '') {
       delete nuevoUsuario.contrasena;
     }
-
-    // Eliminar la propiedad 'posicion' si el rol no es jugador
     if (nuevoUsuario.rol !== 'jugador') {
       delete nuevoUsuario.posicion;
     }
-
     if(this.editando) {
       this.usuariosService.actualizarUsuario(this.usuarioId, nuevoUsuario).subscribe({
         next: () => {
@@ -75,7 +71,6 @@ export class UsuariosComponent implements OnInit {
           this.crearFormulario();
           this.form.reset({ rol: 'usuario' });
 
-          // Mostrar mensaje de notificacion cuando se edite el usuario y quitar el mensaje  en 3 segundos
           setTimeout(() => {this.mensaje = '';}, 3000);
         },
         error: (err) => {
@@ -89,7 +84,6 @@ export class UsuariosComponent implements OnInit {
         this.form.reset({ rol: 'usuario' });
         this.obtenerUsuarios();
 
-        // Mostrar mensaje de notificacion cuando se cree el usuario y quitar el mensaje  en 3 segundos
         setTimeout(() => {this.mensaje = '';}, 3000);
       },
       error: (err) => {
@@ -99,13 +93,13 @@ export class UsuariosComponent implements OnInit {
   }
 }
 
+
   eliminarUsuario(id: string) {
     this.usuariosService.eliminarUsuario(id).subscribe({
       next: () => {
         this.mensaje = 'Usuario eliminado correctamente';
         this.obtenerUsuarios();
 
-        // Mostrar mensaje de notificacion cuando se elimine el usuario y quitar el mensaje  en 3 segundos
         setTimeout(() => {
           this.mensaje = '';
         }, 3000);
@@ -116,6 +110,7 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+
   editarUsuario(usuario: any) {
     this.form.patchValue({
       nombre: usuario.nombre,
@@ -124,10 +119,8 @@ export class UsuariosComponent implements OnInit {
       rol: usuario.rol,
       posicion: usuario.posicion || '',
     });
-
     this.form.get('contrasena')?.clearValidators();
     this.form.get('contrasena')?.updateValueAndValidity();
-
     this.usuarioId = usuario._id;
     this.editando = true;
   }
