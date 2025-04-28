@@ -14,7 +14,6 @@ export class PartidosComponent implements OnInit {
   jugadoresDisponibles: any[] = [];
   tecnicosDisponibles: any[] = [];
   jugadoresConvocados: any[] = [];
-
   form!: FormGroup;
   mensaje: string = '';
   errorMensaje: string = '';
@@ -36,6 +35,7 @@ export class PartidosComponent implements OnInit {
     this.obtenerUsuarios();
   }
 
+
   crearFormulario() {
     this.form = this.fb.group({
       equipoRival: ['', Validators.required],
@@ -47,6 +47,7 @@ export class PartidosComponent implements OnInit {
     });
   }
 
+
   obtenerPartidos() {
     this.partidosService.obtenerPartidos().subscribe({
       next: (res) => {
@@ -57,6 +58,7 @@ export class PartidosComponent implements OnInit {
       }
     });
   }
+
 
   obtenerUsuarios() {
     this.usuariosService.obtenerUsuarios().subscribe({
@@ -70,24 +72,24 @@ export class PartidosComponent implements OnInit {
     });
   }
 
+
   agregarJugador() {
     if (!this.jugadorSeleccionado) return;
-
     const jugadorEncontrado = this.jugadoresDisponibles.find(j => j._id === this.jugadorSeleccionado);
     if (!jugadorEncontrado) return;
-
     this.jugadoresConvocados.push({
       jugador: jugadorEncontrado._id,
       nombre: jugadorEncontrado.nombre,
       posicion: jugadorEncontrado.posicion
     });
-
     this.jugadorSeleccionado = null;
   }
+
 
   eliminarJugador(index: number) {
     this.jugadoresConvocados.splice(index, 1);
   }
+
 
   registrarPartido() {
     if (this.form.invalid) {
@@ -95,13 +97,11 @@ export class PartidosComponent implements OnInit {
       setTimeout(() => { this.errorMensaje = ''; }, 3000);
       return;
     }
-
     if (this.jugadoresConvocados.length < 11) {
       this.errorMensaje = 'Debes convocar al menos 11 jugadores para crear el partido';
       setTimeout(() => { this.errorMensaje = ''; }, 3000);
       return;
     }
-
     const nuevoPartido = {
       ...this.form.value,
       jugadoresConvocados: this.jugadoresConvocados.map(j => ({
@@ -109,9 +109,6 @@ export class PartidosComponent implements OnInit {
         posicion: j.posicion
       }))
     };
-
-
-
     if (this.editando) {
       this.partidosService.actualizarPartido(this.partidoId, nuevoPartido).subscribe({
         next: () => {
@@ -145,6 +142,7 @@ export class PartidosComponent implements OnInit {
     }
   }
 
+
   eliminarPartido(id: string) {
     this.partidosService.eliminarPartido(id).subscribe({
       next: () => {
@@ -158,6 +156,7 @@ export class PartidosComponent implements OnInit {
     });
   }
 
+
   editarPartido(partido: any) {
     this.form.patchValue({
       equipoRival: partido.equipoRival,
@@ -167,6 +166,7 @@ export class PartidosComponent implements OnInit {
       competencia: partido.competencia,
       tecnico: partido.tecnico,
     });
+
 
     this.jugadoresConvocados = partido.jugadoresConvocados.map((jug: any) => ({
       jugador: jug.jugador,
